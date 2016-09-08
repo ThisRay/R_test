@@ -8,7 +8,7 @@ make_all_UTF8 <- function(){
 	}
 
 	### add yaml  (and path)
-	dealRDatapro <- function(x, sep="\t", encoding="UTF-8"){
+	dealRDatapro <-function(x, sep="\t", encoding="UTF-8"){
 		if(FALSE %in% c(sapply(x,test_is.UTF8), sapply(names(x),test_is.UTF8) )){x
 		}else{rawtsv <- tempfile()
 			write.table(x, file=rawtsv, sep=sep)
@@ -35,8 +35,12 @@ make_all_UTF8 <- function(){
 			assign(ls[i], temp)
 		}else if(cla=='data.frame'){
 			if(grepl('mingw',sessionInfo()$R.version$os)){temp<-dealRDatapro(temp)} ## for windows
-			names(temp) <- sapply(names(temp), test_and_change)
-			assign(ls[i], as.data.frame(sapply(temp, sapply, test_and_change), row.names=1:nrow(temp)))
+
+			if(FALSE %in% c(sapply(names(temp),test_is.UTF8))){
+				names(temp) <- sapply(names(temp), test_and_change)}
+			if(FALSE %in% c(sapply(temp,test_is.UTF8))){
+				assign(ls[i], as.data.frame(sapply(temp, sapply, test_and_change), row.names=1:nrow(temp)))}
+				
 		}else if(cla=='list'){  ## yaml here
 			names(temp) <- sapply(names(temp), test_and_change)
 			assign(ls[i], lapply(temp, test_and_change))
@@ -57,4 +61,3 @@ make_all_UTF8 <- function(){
 	}
 	print('done!')
 }
-
