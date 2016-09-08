@@ -7,6 +7,7 @@ set_cht <- function(){
 	}
 }
 
+
 make_all_UTF8 <- function(){
 	### OS setting
 	set_cht()
@@ -68,3 +69,39 @@ make_all_UTF8 <- function(){
 	print('done!')
 }
 
+
+check_course <- function(){
+	set_cht()
+	test_is.BIG5 <- function(s){!is.na(iconv(iconv(s,"BIG5","UTF-8"),"UTF-8","BIG5"))}
+	test_is.UTF8 <- function(s){!is.na(iconv(iconv(s,"UTF-8","BIG5"),"BIG5","UTF-8"))}
+
+	## for test
+	# path1 <- '/Users/thisray/Documents/work/R_swirl/test_ray/My_New_Course/My_First_Lesson/big5_test.yaml'
+	# path2 <- '/Users/thisray/Documents/work/R_swirl/big5.yaml'
+	# path3 <- '/Library/Frameworks/R.framework/Versions/3.3/Resources/library/swirl/Courses/DataScienceAndR/00-Hello-DataScienceAndR/lesson.yaml'
+	# path <- c(path1, path2, path3)
+
+	## yaml path
+	path <- c(
+		Sys.glob(file.path(.libPaths(), "swirl","*","*.yaml")),
+		Sys.glob(file.path(.libPaths(), "swirl","*","*","*.yaml")),
+		Sys.glob(file.path(.libPaths(), "swirl","*","*","*","*.yaml")),
+		Sys.glob(file.path(.libPaths(), "swirl","*","*","*","*","*.yaml"))	)
+	path <- na.omit(path)
+
+	for(ip in 1:length(path)){
+	result <- try( test <- yaml.load_file(path[ip]) )  ### need try-catch ####
+
+	if(class(result) == "try-error"){print(paste('(error) not UTF-8 file: ',path[ip],sep=' '))
+	}else{
+		## check cht words use ##
+		# temp_i <- 1
+		# temp_ij <- c(1,1)
+		# for(i in 1:length(test)){
+		# 	for(j in 1:length(test[[i]])){
+		# 		if(!test_is.UTF8(test[[i]][[j]])){temp_i<-0;temp_ij<-c(i,j);break}}}
+		# if(temp_i==0){print(paste('need to check UTF-8 : ',path[ip],sep=' '))
+		# 				print(test[[temp_ij[1]]][[temp_ij[2]]])}
+	}}
+	print('check over')
+}
