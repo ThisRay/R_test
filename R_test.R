@@ -60,10 +60,7 @@ make_all_UTF8 <- function(){
 
 		}else if(cla=='function'){
 			# function pass
-		}else{
-			print('pau')
-			print(cla)
-		}
+		}else{print('pau');print(cla);}
 		assign(objects(envir=.GlobalEnv)[i], get(ls[i]), envir=.GlobalEnv)
 	}
 	print('done!')
