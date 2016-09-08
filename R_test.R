@@ -1,5 +1,4 @@
 
-
 make_all_UTF8 <- function(){
 	### OS setting
 	if(grepl('mingw',sessionInfo()$R.version$os)){
@@ -9,7 +8,7 @@ make_all_UTF8 <- function(){
 	}
 
 	### add yaml  (and path)
-	dealRDatapro <-function(x, sep="\t", encoding="UTF-8"){
+	dealRDatapro <- function(x, sep="\t", encoding="UTF-8"){
 		if(FALSE %in% c(sapply(x,test_is.UTF8), sapply(names(x),test_is.UTF8) )){x
 		}else{rawtsv <- tempfile()
 			write.table(x, file=rawtsv, sep=sep)
