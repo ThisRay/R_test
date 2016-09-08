@@ -90,14 +90,20 @@ check_course <- function(){
 		## try here ##
 		result <- try(test <- yaml.load_file(path[ip]))  
 
-		if(class(result) == "try-error"){print(paste('(error) not UTF-8 file: ', path[ip], sep = ' '))
+		if(class(result) == "try-error"){
+			print(paste('(error) not UTF-8 file: ', path[ip], sep = ' '))
 		}else{
-			## check cht words use ##
+			# check cht words use ##
 			# temp_i <- 1
 			# temp_ij <- c(1,1)
 			# for(i in 1:length(test)){
 			# 	for(j in 1:length(test[[i]])){
-			# 		if(!test_is.UTF8(test[[i]][[j]])){temp_i<-0;temp_ij<-c(i,j);break}}}
+			# 		if(Encoding(test[[i]][[j]]) != "UTF-8" & !test_is.UTF8(test[[i]][[j]])){
+			# 			temp_i<-0
+			# 			temp_ij<-c(i,j)
+			# 			print(test[[temp_ij[1]]][[temp_ij[2]]])
+			# 			#break
+			# 			}}}
 			# if(temp_i==0){print(paste('need to check UTF-8 : ',path[ip],sep=' '))
 			# 				print(test[[temp_ij[1]]][[temp_ij[2]]])}
 	}}
