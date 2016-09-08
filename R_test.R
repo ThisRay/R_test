@@ -6,6 +6,7 @@ make_all_UTF8 <- function(){
 	}else if(grepl('linux',sessionInfo()$R.version$os) | grepl('darwin',sessionInfo()$R.version$os)){
 		Sys.setlocale(category = "LC_ALL", locale = "zh_TW.UTF-8")
 	}
+	options(warn=-1)
 
 	### add yaml  (and path)
 	dealRDatapro <-function(x, sep="\t", encoding="UTF-8"){
@@ -40,7 +41,7 @@ make_all_UTF8 <- function(){
 				names(temp) <- sapply(names(temp), test_and_change)}
 			if(FALSE %in% c(sapply(temp,test_is.UTF8))){
 				assign(ls[i], as.data.frame(sapply(temp, sapply, test_and_change), row.names=1:nrow(temp)))}
-				
+
 		}else if(cla=='list'){  ## yaml here
 			names(temp) <- sapply(names(temp), test_and_change)
 			assign(ls[i], lapply(temp, test_and_change))
