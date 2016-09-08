@@ -23,11 +23,11 @@ make_all_UTF8 <- function(){
 			result}}
 	test_is.BIG5 <- function(s){!is.na(iconv(iconv(s,"BIG5","UTF-8"),"UTF-8","BIG5"))}
 	test_is.UTF8 <- function(s){!is.na(iconv(iconv(s,"UTF-8","BIG5"),"BIG5","UTF-8"))}
+	#######  有時候有 NA 問題
 	test_and_change <- function(s){if(is.na(s)){NA  
 					}else if(test_is.UTF8(s)){s
 					}else if(test_is.BIG5(s)){iconv(s,"BIG5","UTF-8")
 					}else{s}}
-	#######  有時候有 NA 問題
 
 	ls <- objects(envir=.GlobalEnv)
 	print(1:length(ls))
