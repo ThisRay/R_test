@@ -1,11 +1,15 @@
 
-make_all_UTF8 <- function(){
-	### OS setting
+set_cht <- function(){
 	if(grepl('mingw',sessionInfo()$R.version$os)){
 		Sys.setlocale(category = "LC_ALL", locale = "cht")
 	}else if(grepl('linux',sessionInfo()$R.version$os) | grepl('darwin',sessionInfo()$R.version$os)){
 		Sys.setlocale(category = "LC_ALL", locale = "zh_TW.UTF-8")
 	}
+}
+
+make_all_UTF8 <- function(){
+	### OS setting
+	set_cht()
 	options(warn=-1)
 
 	### add yaml  (and path)
@@ -62,3 +66,4 @@ make_all_UTF8 <- function(){
 	}
 	print('done!')
 }
+
